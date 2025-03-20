@@ -28,7 +28,7 @@
         "title": "Memory Address",
         "description": "An inventive project that fuses C and Python to simulate C-style pointers. This tool delves into low-level memory management, and can print the memory address of a variable or can find the value at a certain memory location; offering unique insights and a fresh perspective on Python’s memory model.",
         "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000",
-        "github": "https://github.com/architmishra-15/Memory-Address",
+        "github": "https://github.com/architmishra-15/Projects/tree/main/Memory%20Address",
         "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/Memory%20Address",
         "tech": ["C", "Python", "Memory Management"]
       },
@@ -36,7 +36,7 @@
         "title": "Password Manager",
         "description": "A practical, user-friendly tool for securely managing website passwords. Featuring an executable for easy access, this project underscores my focus on building secure and accessible applications.",
         "image": "https://img.freepik.com/premium-photo/cybersecurity-secured-login-access-user-typing-password_1150253-398.jpg?w=996",
-        "github": "https://github.com/architmishra-15/Password_Manager",
+        "github": "https://github.com/architmishra-15/Projects/tree/main/Password_Manager",
         "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/Password_Manager",
         "tech": ["Python", "Security", "CLI", "SQL"]
       },
