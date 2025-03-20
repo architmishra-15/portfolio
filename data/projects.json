@@ -1,0 +1,76 @@
+{
+    "projects": [
+      {
+        "title": "C-Web-Server",
+        "description": "A robust web server built in C that demonstrates low-level system programming, networking prowess, socket programming and optimization techniques. This project handles high loads with efficiency and precision, along with functionalities like live reloading the webpage whenever there is a change in source file.",
+        "image": "https://plus.unsplash.com/premium_photo-1664297989345-f4ff2063b212?q=80&w=1398&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "github": "https://github.com/architmishra-15/Projects/tree/main/C-Web-Server",
+        "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/C-Web-Server",
+        "tech": ["C", "Linux", "Networking"]
+      },
+      {
+        "title": "PixGlance",
+        "description": "A polished mobile application built using Flutter for viewing svg images on mobile phones, it also supports 12 other image formats like png, tiff, ico, webp, bmp, heic etc; and offers a sleek, intuitive interface and responsive design. This project highlights modern cross-platform development and creative UI/UX design.",
+        "image": "/PixGlance.png",
+        "github": "https://github.com/architmishra-15/PixGlance",
+        "gitlab": "",
+        "tech": ["Dart", "Flutter", "Mobile Development"]
+      },
+      {
+        "title": "CLI Project Setup",
+        "description": "A command-line tool that streamlines git initialization in a project directory by bootstrapping new projects quickly and efficiently, along with a sample code file generated. This utility simplifies the development workflow and reduces repetitive setup tasks.",
+        "image": "https://img.freepik.com/free-vector/coding_53876-25854.jpg?t=st=1742459928~exp=1742463528~hmac=091a510be8b9da90818cefe640fb1060d908db5ded72947f853a5ecff7e0ea12&w=1060",
+        "github": "https://github.com/architmishra-15/project-setup-cli",
+        "gitlab": "",
+        "tech": ["Go", "CLI", "Git", "Project"]
+      },
+      {
+        "title": "Memory Address",
+        "description": "An inventive project that fuses C and Python to simulate C-style pointers. This tool delves into low-level memory management, and can print the memory address of a variable or can find the value at a certain memory location; offering unique insights and a fresh perspective on Python’s memory model.",
+        "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000",
+        "github": "https://github.com/architmishra-15/Memory-Address",
+        "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/Memory%20Address",
+        "tech": ["C", "Python", "Memory Management"]
+      },
+      {
+        "title": "Password Manager",
+        "description": "A practical, user-friendly tool for securely managing website passwords. Featuring an executable for easy access, this project underscores my focus on building secure and accessible applications.",
+        "image": "https://img.freepik.com/premium-photo/cybersecurity-secured-login-access-user-typing-password_1150253-398.jpg?w=996",
+        "github": "https://github.com/architmishra-15/Password_Manager",
+        "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/Password_Manager",
+        "tech": ["Python", "Security", "CLI", "SQL"]
+      },
+      {
+        "title": "Speed Test",
+        "description": "A network speed testing tool that measures download and upload speeds in real time. Developed with React on the frontend and Python on the backend, it delivers immediate insights into network performance.",
+        "image": "/speed_test.png",
+        "github": "https://github.com/architmishra-15/Projects/tree/main/speed_test",
+        "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/speed_test",
+        "tech": ["React", "Python", "Networking", "Sockets"]       
+      },
+      {
+        "title": "YouTube Video Downloader",
+        "description": "A user-friendly application that allows you to download YouTube videos effortlessly. It features a clean GUI and supports multiple video formats for convenient offline viewing.",
+      "image": "https://cdn.pixabay.com/photo/2022/01/21/00/38/youtube-icon-6953527_960_720.jpg",
+        "github": "https://github.com/architmishra-15/Projects/tree/main/YouTube%20Video%20Downloader",
+        "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/YouTube%20Video%20Downloader",
+        "tech": ["Python", "Video", "GUI"]
+      },
+      {
+        "title": "IMG-HDF5 Converter",
+        "description": "A specialized utility that converts images to HDF5 format and vice versa. Leveraging Python and efficient data processing libraries, this tool is ideal for managing large image datasets in scientific and research applications.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a0/HDF_logo.svg",
+        "github": "https://github.com/architmishra-15/Projects/tree/main/img_converter/Image%20to%20Arry",
+        "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/img_converter/Image%20to%20Arry",
+        "tech": ["Python", "Image", "CLI"]
+      },
+      {
+        "title": "Data Visualization",
+        "description": "A collection of insightful data visualization projects crafted with Python. It transforms raw data into compelling visual narratives—from demographic insights to economic trends—using innovative design elements.",
+        "image": "https://img.freepik.com/free-vector/stock-market-analysis-with-chart_23-2148584739.jpg?t=st=1742461023~exp=1742464623~hmac=dabaa61c58a2a1ab4babc753eb12af6dd235e7d4a2f5e4e47317e2428a071ad4&w=996",
+        "github": "https://github.com/architmishra-15/Projects/tree/main/Data%20Visualization",
+        "gitlab": "https://gitlab.com/archit_mishra/projects/-/tree/main/Data%20Visualization",
+        "tech": ["Python", "Data Analysis", "Visualization"]
+      }      
+    ]
+}

@@ -1,0 +1,163 @@
+[
+    {
+      "name": "Python",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      "category": "Languages"
+    },
+    {
+      "name": "C/C++",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg",
+      "category": "Languages"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      "category": "Languages"
+    },
+    {
+      "name": "Dart",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg",
+      "category": "Languages"
+    },
+    {
+      "name": "Go",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+      "category": "Languages"
+    },
+    {
+      "name": "Lua",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg",
+      "category": "Languages"
+    },
+    {
+      "name": "Latex",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/latex/latex-original.svg",
+      "category": "Languages"
+    },
+    {
+      "name": "LLVM",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/llvm/llvm-original.svg",
+      "category": "Languages"
+    },
+    {
+      "name": "React",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Node",
+      "icon": "https://nodejs.org/static/logos/nodejsLight.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Qt",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/qt/qt-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "GTK",
+      "icon": "https://wiki.gnome.org/attachments/Projects(2f)GTK(2f)Logo/gtk-logo.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Selenium",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/selenium/selenium-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Flask",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Pandas",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "NumPy",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Matplotlib",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Seaborn",
+      "icon": "https://seaborn.pydata.org/_static/logo-wide-lightbg.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "CMake",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cmake/cmake-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "LLVM",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/llvm/llvm-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Flutter",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg",
+      "category": "Frameworks"
+    },
+    {
+      "name": "Git",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "Linux",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "GitHub",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "GitLab",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "Jupyter",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original-wordmark.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "Neovim",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/neovim/neovim-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "Visual Studio Code",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "Docker",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "SQLite",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "Postgresql",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+      "category": "Tools"
+    },
+    {
+      "name": "MySQL",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg",
+      "category": "Tools"
+    }
+  ]
+  

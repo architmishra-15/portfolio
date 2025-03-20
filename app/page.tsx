@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import {
   Github,
   Gitlab,
@@ -17,13 +17,15 @@ import {
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { ContactDialog } from '@/components/ui/ContactDialog';
+import { SocialMediaDialog } from '@/components/ui/SocialMediaDialog';
 import { useTheme } from 'next-themes';
-
-interface Skill {
-  name: string;
-  icon: string;
-  category: 'Languages' | 'Frameworks' | 'Tools';
-}
+import skills from '@/data/skills.json';
+import projectsData from '@/data/projects.json';
+import { cn } from "@/lib/utils";
+import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
+import { useMotionValue, useSpring, useTransform } from "framer-motion";
+import Link from "next/link";
+import { useRef } from "react";
 
 interface Project {
   title: string;
@@ -34,130 +36,241 @@ interface Project {
   tech: string[];
 }
 
+const FloatingDockMobile = ({
+  items,
+  className,
+}: {
+  items: { title: string; icon: React.ReactNode; href?: string; onClick?: () => void }[];
+  className?: string;
+}) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={cn("relative block md:hidden", className)}>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            layoutId="nav"
+            className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-2"
+          >
+            {items.map((item, idx) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  y: 10,
+                  transition: {
+                    delay: idx * 0.05,
+                  },
+                }}
+                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
+              >
+                {item.href ? (
+                  <Link
+                    href={item.href}
+                    key={item.title}
+                    className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
+                  >
+                    <div className="h-4 w-4">{item.icon}</div>
+                  </Link>
+                ) : (
+                  <button
+                    onClick={item.onClick}
+                    className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
+                  >
+                    <div className="h-4 w-4">{item.icon}</div>
+                  </button>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <button
+        onClick={() => setOpen(!open)}
+        className="h-12 w-12 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center shadow-lg"
+      >
+        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+      </button>
+    </div>
+  );
+};
+
+function IconContainer({
+  mouseX,
+  title,
+  icon,
+  onClick,
+}: {
+  mouseX: any;
+  title: string;
+  icon: React.ReactNode;
+  onClick?: () => void;
+}) {
+  let ref = useRef<HTMLDivElement>(null);
+ 
+  // For mobile, use smaller fixed sizes
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
+  let distance = useTransform(mouseX, (val: number) => {
+    let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    return val - bounds.x - bounds.width / 2;
+  });
+ 
+  // Use smaller sizes on mobile
+  let widthTransform = useTransform(distance, [-150, 0, 150], isMobile ? [30, 40, 30] : [40, 80, 40]);
+  let heightTransform = useTransform(distance, [-150, 0, 150], isMobile ? [30, 40, 30] : [40, 80, 40]);
+ 
+  let widthTransformIcon = useTransform(distance, [-150, 0, 150], isMobile ? [15, 20, 15] : [20, 40, 20]);
+  let heightTransformIcon = useTransform(distance, [-150, 0, 150], isMobile ? [15, 20, 15] : [20, 40, 20]);
+ 
+  let width = useSpring(widthTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  let height = useSpring(heightTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+ 
+  let widthIcon = useSpring(widthTransformIcon, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  let heightIcon = useSpring(heightTransformIcon, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+ 
+  const [hovered, setHovered] = useState(false);
+ 
+  return (
+    <div onClick={onClick}>
+      <motion.div
+        ref={ref}
+        style={{ width, height }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative cursor-pointer"
+      >
+        <AnimatePresence>
+          {hovered && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, x: "-50%" }}
+              animate={{ opacity: 1, y: 0, x: "-50%" }}
+              exit={{ opacity: 0, y: 2, x: "-50%" }}
+              className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+            >
+              {title}
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <motion.div
+          style={{ width: widthIcon, height: heightIcon }}
+          className="flex items-center justify-center"
+        >
+          {icon}
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+const FloatingDockDesktop = ({
+  items,
+  className,
+}: {
+  items: { title: string; icon: React.ReactNode; onClick?: () => void }[];
+  className?: string;
+}) => {
+  let mouseX = useMotionValue(Infinity);
+  return (
+    <motion.div
+      onMouseMove={(e) => mouseX.set(e.pageX)}
+      onMouseLeave={() => mouseX.set(Infinity)}
+      className={cn(
+        "mx-auto flex h-16 gap-4 items-end rounded-2xl bg-background/80 backdrop-blur-sm border border-border px-4 pb-3",
+        className
+      )}
+    >
+      {items.map((item) => (
+        <IconContainer mouseX={mouseX} key={item.title} {...item} />
+      ))}
+    </motion.div>
+  );
+};
+
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
+  const [socialDialogOpen, setSocialDialogOpen] = useState(false);
+  const [socialType, setSocialType] = useState<'instagram' | 'linkedin'>('instagram');
+  const [visible, setVisible] = useState(true);
+  const { scrollY } = useScroll();
+  const [lastScrollY, setLastScrollY] = useState(0);
 
-  const skills: Skill[] = [
-    // Languages
-    {
-      name: 'Python',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-      category: 'Languages',
-    },
-    {
-      name: 'C++',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
-      category: 'Languages',
-    },
-    {
-      name: 'TypeScript',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-      category: 'Languages',
-    },
-    {
-      name: 'Go',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg',
-      category: 'Languages',
-    },
-    {
-      name: 'LLVM',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/llvm/llvm-original.svg',
-      category: 'Languages',
-    },
-    // Frameworks
-    {
-      name: 'React',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
-      category: 'Frameworks',
-    },
-    {
-      name: 'Node',
-      icon: 'https://nodejs.org/static/logos/nodejsLight.svg',
-      category: 'Frameworks',
-    },
-    {
-      name: 'Qt',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/qt/qt-original.svg',
-      category: 'Frameworks',
-    },
-    {
-      name: 'GTK',
-      icon: 'https://wiki.gnome.org/attachments/Projects(2f)GTK(2f)Logo/gtk-logo.svg',
-      category: 'Frameworks',
-    },
-    {
-      name: 'Pandas',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg',
-      category: 'Frameworks',
-    },
-    {
-      name: 'LLVM',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/llvm/llvm-original.svg',
-      category: 'Frameworks',
-    },
-    // Tools
-    {
-      name: 'Git',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
-      category: 'Tools',
-    },
-    {
-      name: 'Linux',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg',
-      category: 'Tools',
-    },
-    {
-      name: 'GitHub',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
-      category: 'Tools',
-    },
-    {
-      name: 'GitLab',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg',
-      category: 'Tools',
-    },
-  ];
-
-  const projects: Project[] = [
-    {
-      title: 'Project 1',
-      description:
-        'A sophisticated project showcasing my expertise in system programming and optimization techniques.',
-      image:
-        'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1000',
-      github: 'https://github.com/yourusername/project1',
-      gitlab: 'https://gitlab.com/yourusername/project1',
-      tech: ['Python', 'C++', 'LLVM'],
-    },
-    {
-      title: 'Project 2',
-      description:
-        'An innovative application that demonstrates my ability to create efficient and scalable solutions.',
-      image:
-        'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=1000',
-      github: 'https://github.com/yourusername/project2',
-      gitlab: 'https://gitlab.com/yourusername/project1',
-      tech: ['TypeScript', 'React', 'Go'],
-    },
-    {
-      title: 'Project 3',
-      description:
-        'A cutting-edge tool that showcases my proficiency in modern development practices.',
-      image:
-        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000',
-      gitlab: 'https://gitlab.com/yourusername/project3',
-      github: 'https://gitlab.com/yourusername/project1',
-      tech: ['Go', 'Qt', 'Linux'],
-    },
-  ];
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > lastScrollY && latest > 100) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+    setLastScrollY(latest);
+  });
 
   const categoryIcons = {
     Languages: <Code2 className="w-6 h-6" />,
     Frameworks: <Braces className="w-6 h-6" />,
     Tools: <Tool className="w-6 h-6" />,
   };
+
+  const navItems = [
+    {
+      title: "GitHub",
+      icon: <Github className="h-4 w-4 md:h-6 md:w-6" />,
+      onClick: () => window.open("https://github.com/architmishra-15", "_blank")
+    },
+    {
+      title: "GitLab",
+      icon: <Gitlab className="h-4 w-4 md:h-6 md:w-6" />,
+      onClick: () => window.open("https://gitlab.com/archit_mishra/", "_blank")
+    },
+    {
+      title: "LinkedIn",
+      icon: <Linkedin className="h-4 w-4 md:h-6 md:w-6" />,
+      onClick: () => {
+        setSocialType('linkedin');
+        setSocialDialogOpen(true);
+      }
+    },
+    {
+      title: "Instagram",
+      icon: <Instagram className="h-4 w-4 md:h-6 md:w-6" />,
+      onClick: () => {
+        setSocialType('instagram');
+        setSocialDialogOpen(true);
+      }
+    },
+    {
+      title: "Mail",
+      icon: <Mail className="h-4 w-4 md:h-6 md:w-6" />,
+      onClick: () => window.open("mailto:your.email@example.com", "_blank")
+    },
+    {
+      title: theme === 'dark' ? "Light Mode" : "Dark Mode",
+      icon: theme === 'dark' ? <Sun className="h-4 w-4 md:h-6 md:w-6" /> : <Moon className="h-4 w-4 md:h-6 md:w-6" />,
+      onClick: () => setTheme(theme === 'dark' ? 'light' : 'dark')
+    }
+  ];
 
   return (
     <main className="min-h-screen bg-background relative overflow-x-hidden">
@@ -177,85 +290,20 @@ export default function Home() {
         />
       </div>
 
-      {/* Header */}
-      <header className="fixed left-0 top-0 right-0 p-6 flex justify-center items-center gap-4 z-50">
-        <nav className="flex items-center gap-3 bg-background/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border">
-          <a
-            href="https://github.com/yourusername"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:scale-110 transition-transform"
-            >
-              <Github className="h-5 w-5" />
-            </Button>
-          </a>
-          <a
-            href="https://gitlab.com/yourusername"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:scale-110 transition-transform"
-            >
-              <Gitlab className="h-5 w-5" />
-            </Button>
-          </a>
-          <a
-            href="https://linkedin.com/in/yourusername"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:scale-110 transition-transform"
-            >
-              <Linkedin className="h-5 w-5" />
-            </Button>
-          </a>
-          <a
-            href="https://instagram.com/yourusername"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:scale-110 transition-transform"
-            >
-              <Instagram className="h-5 w-5" />
-            </Button>
-          </a>
-          <a href="mailto:your.email@example.com">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:scale-110 transition-transform"
-            >
-              <Mail className="h-5 w-5" />
-            </Button>
-          </a>
-          <div className="w-px h-5 bg-border mx-2" />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="hover:scale-110 transition-transform"
-          >
-            {theme === 'dark' ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </Button>
-        </nav>
-      </header>
+      {/* Floating Dock Navigation */}
+      <motion.div
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
+        transition={{ 
+          duration: 0.2,
+          type: "spring",
+          stiffness: 300,
+          damping: 20
+        }}
+        className="fixed top-6 left-0 right-0 flex justify-center z-50 px-4"
+      >
+        <FloatingDockDesktop items={navItems} className="shadow-lg" />
+      </motion.div>
 
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-4 pt-28 pb-20 md:pt-32 md:pb-0">
@@ -385,11 +433,11 @@ export default function Home() {
                 transition={{ delay: 1.2 }}
                 className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto"
               >
-                A passionate developer from India, currently in class 12th,{' '}
+                A developer from India, currently in class 12th,{' '}
                 <span className="relative inline-block">
                   <span className="absolute -inset-1 rounded-lg blur-sm bg-primary/20 animate-pulse" />
                   <span className="relative text-primary font-semibold">
-                    extersie in languages like Python, C/C++ etc 
+                    expertise in languages like Python, C/C++ etc 
                   </span>
                 </span>
                 .
@@ -519,7 +567,7 @@ export default function Home() {
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
+            {projectsData.projects.map((project, index) => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -620,6 +668,11 @@ export default function Home() {
         )}
       </AnimatePresence>
       <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
+      <SocialMediaDialog 
+        open={socialDialogOpen} 
+        onOpenChange={setSocialDialogOpen} 
+        socialType={socialType} 
+      />
     </main>
   );
 }

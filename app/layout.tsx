@@ -2,6 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
+import { GlobalTracingScrollbar } from '@/components/ui/tracing-beam';
+import Footer from '@/components/footer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,7 +34,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+            <GlobalTracingScrollbar />
+            {children}
+            <Footer />
         </ThemeProvider>
       </body>
     </html>
