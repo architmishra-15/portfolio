@@ -1,26 +1,33 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { useEffect, useState } from "react";
 import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
+import {
+  ArrowRight,
+  Braces,
+  ChevronRight,
+  Code2,
   Github,
   Gitlab,
-  Linkedin,
   Instagram,
+  Linkedin,
   Mail,
   Moon,
-  Sun,
-  Code2,
-  Braces,
   PenTool as Tool,
-} from 'lucide-react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { ContactDialog } from '@/components/ui/ContactDialog';
-import { SocialMediaDialog } from '@/components/ui/SocialMediaDialog';
-import { useTheme } from 'next-themes';
-import skills from '@/data/skills.json';
-import projectsData from '@/data/projects.json';
+  Sun,
+} from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { ContactDialog } from "@/components/ui/ContactDialog";
+import { SocialMediaDialog } from "@/components/ui/SocialMediaDialog";
+import { useTheme } from "next-themes";
+import skills from "@/data/skills.json";
+import projectsData from "@/data/projects.json";
 import { cn } from "@/lib/utils";
 import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
@@ -40,7 +47,12 @@ const FloatingDockMobile = ({
   items,
   className,
 }: {
-  items: { title: string; icon: React.ReactNode; href?: string; onClick?: () => void }[];
+  items: {
+    title: string;
+    icon: React.ReactNode;
+    href?: string;
+    onClick?: () => void;
+  }[];
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
@@ -69,22 +81,24 @@ const FloatingDockMobile = ({
                 }}
                 transition={{ delay: (items.length - 1 - idx) * 0.05 }}
               >
-                {item.href ? (
-                  <Link
-                    href={item.href}
-                    key={item.title}
-                    className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
-                  >
-                    <div className="h-4 w-4">{item.icon}</div>
-                  </Link>
-                ) : (
-                  <button
-                    onClick={item.onClick}
-                    className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
-                  >
-                    <div className="h-4 w-4">{item.icon}</div>
-                  </button>
-                )}
+                {item.href
+                  ? (
+                    <Link
+                      href={item.href}
+                      key={item.title}
+                      className="h-10 w-10 rounded-full bg-stone-100 dark:bg-neutral-900 flex items-center justify-center"
+                    >
+                      <div className="h-4 w-4">{item.icon}</div>
+                    </Link>
+                  )
+                  : (
+                    <button
+                      onClick={item.onClick}
+                      className="h-10 w-10 rounded-full bg-stone-100 dark:bg-neutral-900 flex items-center justify-center"
+                    >
+                      <div className="h-4 w-4">{item.icon}</div>
+                    </button>
+                  )}
               </motion.div>
             ))}
           </motion.div>
@@ -92,7 +106,7 @@ const FloatingDockMobile = ({
       </AnimatePresence>
       <button
         onClick={() => setOpen(!open)}
-        className="h-12 w-12 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center shadow-lg"
+        className="h-12 w-12 rounded-full bg-stone-100 dark:bg-neutral-800 flex items-center justify-center shadow-lg"
       >
         <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
       </button>
@@ -112,22 +126,38 @@ function IconContainer({
   onClick?: () => void;
 }) {
   let ref = useRef<HTMLDivElement>(null);
- 
+
   // For mobile, use smaller fixed sizes
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
   let distance = useTransform(mouseX, (val: number) => {
     let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
- 
+
   // Use smaller sizes on mobile
-  let widthTransform = useTransform(distance, [-150, 0, 150], isMobile ? [30, 40, 30] : [40, 80, 40]);
-  let heightTransform = useTransform(distance, [-150, 0, 150], isMobile ? [30, 40, 30] : [40, 80, 40]);
- 
-  let widthTransformIcon = useTransform(distance, [-150, 0, 150], isMobile ? [15, 20, 15] : [20, 40, 20]);
-  let heightTransformIcon = useTransform(distance, [-150, 0, 150], isMobile ? [15, 20, 15] : [20, 40, 20]);
- 
+  let widthTransform = useTransform(
+    distance,
+    [-150, 0, 150],
+    isMobile ? [30, 40, 30] : [40, 80, 40],
+  );
+  let heightTransform = useTransform(
+    distance,
+    [-150, 0, 150],
+    isMobile ? [30, 40, 30] : [40, 80, 40],
+  );
+
+  let widthTransformIcon = useTransform(
+    distance,
+    [-150, 0, 150],
+    isMobile ? [15, 20, 15] : [20, 40, 20],
+  );
+  let heightTransformIcon = useTransform(
+    distance,
+    [-150, 0, 150],
+    isMobile ? [15, 20, 15] : [20, 40, 20],
+  );
+
   let width = useSpring(widthTransform, {
     mass: 0.1,
     stiffness: 150,
@@ -138,7 +168,7 @@ function IconContainer({
     stiffness: 150,
     damping: 12,
   });
- 
+
   let widthIcon = useSpring(widthTransformIcon, {
     mass: 0.1,
     stiffness: 150,
@@ -149,9 +179,9 @@ function IconContainer({
     stiffness: 150,
     damping: 12,
   });
- 
+
   const [hovered, setHovered] = useState(false);
- 
+
   return (
     <div onClick={onClick}>
       <motion.div
@@ -159,7 +189,7 @@ function IconContainer({
         style={{ width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative cursor-pointer"
+        className="aspect-square rounded-full bg-stone-200 dark:bg-neutral-800 flex items-center justify-center relative cursor-pointer"
       >
         <AnimatePresence>
           {hovered && (
@@ -167,7 +197,7 @@ function IconContainer({
               initial={{ opacity: 0, y: 10, x: "-50%" }}
               animate={{ opacity: 1, y: 0, x: "-50%" }}
               exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+              className="px-2 py-0.5 whitespace-pre rounded-md bg-stone-100 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-stone-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
             >
               {title}
             </motion.div>
@@ -197,8 +227,8 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto flex h-16 gap-4 items-end rounded-2xl bg-background/80 backdrop-blur-sm border border-border px-4 pb-3",
-        className
+        "mx-auto flex h-16 gap-4 items-end rounded-2xl bg-stone-50/80 dark:bg-background/80 backdrop-blur-sm border border-stone-200 dark:border-border px-4 pb-3",
+        className,
       )}
     >
       {items.map((item) => (
@@ -213,7 +243,9 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
   const [socialDialogOpen, setSocialDialogOpen] = useState(false);
-  const [socialType, setSocialType] = useState<'instagram' | 'linkedin'>('instagram');
+  const [socialType, setSocialType] = useState<"instagram" | "linkedin">(
+    "instagram",
+  );
   const [visible, setVisible] = useState(true);
   const { scrollY } = useScroll();
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -237,47 +269,53 @@ export default function Home() {
     {
       title: "GitHub",
       icon: <Github className="h-4 w-4 md:h-6 md:w-6" />,
-      onClick: () => window.open("https://github.com/architmishra-15", "_blank")
+      onClick: () =>
+        window.open("https://github.com/architmishra-15", "_blank"),
     },
     {
       title: "GitLab",
       icon: <Gitlab className="h-4 w-4 md:h-6 md:w-6" />,
-      onClick: () => window.open("https://gitlab.com/archit_mishra/", "_blank")
+      onClick: () => window.open("https://gitlab.com/archit_mishra/", "_blank"),
     },
     {
       title: "LinkedIn",
       icon: <Linkedin className="h-4 w-4 md:h-6 md:w-6" />,
       onClick: () => {
-        setSocialType('linkedin');
+        setSocialType("linkedin");
         setSocialDialogOpen(true);
-      }
+      },
     },
     {
       title: "Instagram",
       icon: <Instagram className="h-4 w-4 md:h-6 md:w-6" />,
       onClick: () => {
-        setSocialType('instagram');
+        setSocialType("instagram");
         setSocialDialogOpen(true);
-      }
+      },
     },
     {
       title: "Mail",
       icon: <Mail className="h-4 w-4 md:h-6 md:w-6" />,
-      onClick: () => window.open("mailto:your.email@example.com", "_blank")
+      onClick: () => window.open("mailto:your.email@example.com", "_blank"),
     },
     {
-      title: theme === 'dark' ? "Light Mode" : "Dark Mode",
-      icon: theme === 'dark' ? <Sun className="h-4 w-4 md:h-6 md:w-6" /> : <Moon className="h-4 w-4 md:h-6 md:w-6" />,
-      onClick: () => setTheme(theme === 'dark' ? 'light' : 'dark')
-    }
+      title: theme === "dark" ? "Light Mode" : "Dark Mode",
+      icon: theme === "dark"
+        ? <Sun className="h-4 w-4 md:h-6 md:w-6" />
+        : <Moon className="h-4 w-4 md:h-6 md:w-6" />,
+      onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
+    },
   ];
 
+  // Only show the first 3 projects
+  const featuredProjects = projectsData.projects.slice(0, 3);
+
   return (
-    <main className="min-h-screen bg-background relative overflow-x-hidden">
+    <main className="min-h-screen bg-stone-50 dark:bg-background relative overflow-x-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/5" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,rgba(120,119,198,0.15),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-stone-50 to-primary/5 dark:via-background dark:from-primary/10 dark:to-primary/10" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,rgba(120,119,198,0.1),transparent)] dark:bg-[radial-gradient(circle_800px_at_100%_200px,rgba(120,119,198,0.15),transparent)]" />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -285,7 +323,7 @@ export default function Home() {
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 50%, rgba(var(--chart-1), 0.1) 0%, transparent 50%)',
+              "radial-gradient(circle at 50% 50%, rgba(var(--chart-1), 0.05) 0%, transparent 50%)",
           }}
         />
       </div>
@@ -294,11 +332,11 @@ export default function Home() {
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
-        transition={{ 
+        transition={{
           duration: 0.2,
           type: "spring",
           stiffness: 300,
-          damping: 20
+          damping: 20,
         }}
         className="fixed top-6 left-0 right-0 flex justify-center z-50 px-4"
       >
@@ -311,7 +349,7 @@ export default function Home() {
           {/* Animated background elements */}
           <div className="absolute -z-10 inset-0 overflow-hidden">
             <motion.div
-              className="absolute w-64 h-64 rounded-full bg-primary/10 blur-xl"
+              className="absolute w-64 h-64 rounded-full bg-primary/5 dark:bg-primary/10 blur-xl"
               animate={{
                 x: [0, 100, 0],
                 y: [0, -50, 0],
@@ -319,11 +357,11 @@ export default function Home() {
               transition={{
                 duration: 20,
                 repeat: Infinity,
-                repeatType: 'reverse',
+                repeatType: "reverse",
               }}
             />
             <motion.div
-              className="absolute right-0 w-80 h-80 rounded-full bg-secondary/10 blur-xl"
+              className="absolute right-0 w-80 h-80 rounded-full bg-secondary/5 dark:bg-secondary/10 blur-xl"
               animate={{
                 x: [0, -100, 0],
                 y: [0, 50, 0],
@@ -331,11 +369,11 @@ export default function Home() {
               transition={{
                 duration: 15,
                 repeat: Infinity,
-                repeatType: 'reverse',
+                repeatType: "reverse",
               }}
             />
             <motion.div
-              className="absolute bottom-0 left-1/2 w-40 h-40 rounded-full bg-accent/10 blur-xl"
+              className="absolute bottom-0 left-1/2 w-40 h-40 rounded-full bg-accent/5 dark:bg-accent/10 blur-xl"
               animate={{
                 x: [-50, 100, -50],
                 y: [0, -100, 0],
@@ -343,7 +381,7 @@ export default function Home() {
               transition={{
                 duration: 25,
                 repeat: Infinity,
-                repeatType: 'reverse',
+                repeatType: "reverse",
               }}
             />
           </div>
@@ -376,19 +414,19 @@ export default function Home() {
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.3, type: 'spring', stiffness: 100 }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
                 className="relative inline-block"
               >
                 <motion.div
-                  className="absolute -inset-1 rounded-lg blur-xl opacity-75 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
+                  className="absolute -inset-1 rounded-lg blur-xl opacity-75 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 dark:from-blue-600 dark:via-purple-600 dark:to-pink-600"
                   animate={{
                     scale: [1, 1.05, 1],
-                    opacity: [0.5, 0.8, 0.5],
+                    opacity: [0.3, 0.5, 0.3], // Lower opacity for light mode
                   }}
                   transition={{
                     duration: 4,
                     repeat: Infinity,
-                    repeatType: 'reverse',
+                    repeatType: "reverse",
                   }}
                 />
                 <div className="relative flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
@@ -398,20 +436,20 @@ export default function Home() {
                     transition={{ delay: 0.4, duration: 0.6 }}
                     className="text-4xl md:text-7xl font-bold tracking-tighter"
                   >
-                    Hi, I am{' '}
+                    Hi, I am{" "}
                   </motion.h1>
                   <motion.h1
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.6, duration: 0.6 }}
-                    className="text-4xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+                    className="text-4xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400"
                   >
                     Archit Mishra
                   </motion.h1>
                   <motion.span
                     initial={{ opacity: 0, rotate: -20, scale: 0 }}
                     animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                    transition={{ delay: 0.8, type: 'spring', stiffness: 100 }}
+                    transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
                     className="inline-block text-4xl md:text-7xl origin-bottom-right"
                   >
                     👋
@@ -433,11 +471,11 @@ export default function Home() {
                 transition={{ delay: 1.2 }}
                 className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto"
               >
-                A developer from India, currently in class 12th,{' '}
+                A developer from India, currently in class 12th,{" "}
                 <span className="relative inline-block">
-                  <span className="absolute -inset-1 rounded-lg blur-sm bg-primary/20 animate-pulse" />
+                  <span className="absolute -inset-1 rounded-lg blur-sm bg-primary/20 dark:bg-primary/30 animate-pulse" />
                   <span className="relative text-primary font-semibold">
-                    expertise in languages like Python, C/C++ etc 
+                    expertise in languages like Python, C/C++ etc
                   </span>
                 </span>
                 .
@@ -460,8 +498,8 @@ export default function Home() {
                   className="rounded-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg"
                   onClick={() => {
                     document
-                      .getElementById('projects')
-                      ?.scrollIntoView({ behavior: 'smooth' });
+                      .getElementById("projects")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
                   View Projects
@@ -484,7 +522,7 @@ export default function Home() {
 
             {/* Skills Grid */}
             <div className="mt-16 space-y-10">
-              {(['Languages', 'Frameworks', 'Tools'] as const).map(
+              {(["Languages", "Frameworks", "Tools"] as const).map(
                 (category) => (
                   <motion.div
                     key={category}
@@ -503,7 +541,7 @@ export default function Home() {
                         whileInView={{ scale: 1, rotate: 0 }}
                         viewport={{ once: true }}
                         transition={{
-                          type: 'spring',
+                          type: "spring",
                           stiffness: 200,
                           delay: 0.3,
                         }}
@@ -525,14 +563,14 @@ export default function Home() {
                             whileHover={{
                               scale: 1.05,
                               boxShadow:
-                                '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                                "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
                               transition: { duration: 0.2 },
                             }}
-                            className="flex items-center gap-3 p-3 rounded-lg bg-card/60 backdrop-blur-sm border border-border hover:border-primary/50 transition-all"
+                            className="flex items-center gap-3 p-3 rounded-lg bg-stone-100/80 dark:bg-card/60 backdrop-blur-sm border border-stone-200 dark:border-border hover:border-primary/40 dark:hover:border-primary/50 transition-all"
                           >
                             <motion.div
                               whileHover={{ rotate: 10 }}
-                              transition={{ type: 'spring', stiffness: 400 }}
+                              transition={{ type: "spring", stiffness: 400 }}
                             >
                               <img
                                 src={skill.icon}
@@ -547,7 +585,7 @@ export default function Home() {
                         ))}
                     </div>
                   </motion.div>
-                )
+                ),
               )}
             </div>
           </motion.div>
@@ -567,7 +605,8 @@ export default function Home() {
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projectsData.projects.map((project, index) => (
+            {/* Only showing the first 3 projects */}
+            {projectsData.projects.slice(0, 3).map((project, index) => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -578,7 +617,7 @@ export default function Home() {
                 className="group cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/50 transition-colors">
+                <div className="relative overflow-hidden rounded-xl border border-border/70 dark:border-border bg-cream-50/90 dark:bg-gray-800/90 hover:border-primary/40 dark:hover:border-primary/50 transition-colors">
                   <div className="aspect-video overflow-hidden">
                     <img
                       src={project.image}
@@ -590,21 +629,48 @@ export default function Home() {
                     <h3 className="text-xl font-semibold mb-2">
                       {project.title}
                     </h3>
+                    <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                      {project.description}
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech) => (
+                      {project.tech.slice(0, 3).map((tech) => (
                         <span
                           key={tech}
-                          className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary"
+                          className="text-xs px-2 py-1 rounded-full bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary"
                         >
                           {tech}
                         </span>
                       ))}
+                      {project.tech.length > 3 && (
+                        <span className="text-xs px-2 py-1 rounded-full bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary">
+                          +{project.tech.length - 3} more
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
+
+          {/* View All Projects Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="flex justify-center mt-12"
+          >
+            <Link href="/projects">
+              <Button
+                variant="outline"
+                className="group rounded-full border-2 border-border/70 dark:border-border hover:border-primary/40 dark:hover:border-primary/50 bg-cream-50/80 dark:bg-gray-800/60 shadow-md flex items-center gap-2 px-6 py-6 transition-all hover:translate-x-1"
+              >
+                <span className="font-medium">View All Projects</span>
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
@@ -615,7 +681,10 @@ export default function Home() {
             open={!!selectedProject}
             onOpenChange={() => setSelectedProject(null)}
           >
-            <DialogContent className="max-w-2xl">
+            <DialogContent
+              className="max-w-2xl"
+              style={{ backgroundColor: "rgba(255, 245, 235, 0.97)" }}
+            >
               <div className="space-y-4">
                 <img
                   src={selectedProject.image}
@@ -668,10 +737,10 @@ export default function Home() {
         )}
       </AnimatePresence>
       <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
-      <SocialMediaDialog 
-        open={socialDialogOpen} 
-        onOpenChange={setSocialDialogOpen} 
-        socialType={socialType} 
+      <SocialMediaDialog
+        open={socialDialogOpen}
+        onOpenChange={setSocialDialogOpen}
+        socialType={socialType}
       />
     </main>
   );
