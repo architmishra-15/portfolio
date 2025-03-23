@@ -1,7 +1,7 @@
-// ContactDialog.tsx
+// components/ui/ContactDialog.tsx
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, X, User, Mail, MessageSquare } from 'lucide-react';
+import { Send, User, Mail, MessageSquare } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { supabase } from '@/lib/supabaseClient';
 
 interface ContactDialogProps {
   open: boolean;
@@ -21,22 +22,41 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
   open,
   onOpenChange,
 }) => {
+  // Existing state variables
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [message, setMessage] = React.useState('');
   const [sending, setSending] = React.useState(false);
   const [sent, setSent] = React.useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // New state variables for location info (defaulting to empty)
+  const [longitude] = React.useState(''); // set to empty string by default
+  const [latitude] = React.useState('');
+  const [city] = React.useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
-    // Simulate sending
-    setTimeout(() => {
+    try {
+      // Insert the user's data into the 'contacts' table
+      const { error } = await supabase.from('messages').insert([
+        {
+          name,
+          email,
+          message: message,
+          longitude,
+          latitude,
+          city,
+        },
+      ]);
+      if (error) {
+        throw error;
+      }
       setSending(false);
       setSent(true);
+      // Automatically close the dialog after 2 seconds and reset the form
       setTimeout(() => {
         onOpenChange(false);
-        // Reset form after dialog closes
         setTimeout(() => {
           setName('');
           setEmail('');
@@ -44,7 +64,11 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
           setSent(false);
         }, 300);
       }, 2000);
-    }, 1500);
+    } catch (err) {
+      console.error('Error sending message:', err);
+      setSending(false);
+      // Optionally, handle errors (e.g. display a notification to the user)
+    }
   };
 
   return (
@@ -116,6 +140,12 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
                 />
               </div>
 
+              {/* 
+                New fields for location are added in the insert payload.
+                Since we are not prompting the user, these remain empty.
+                You can later enhance this by fetching approximate location from IP if desired.
+              */}
+
               <div className="flex justify-end">
                 <Button
                   type="submit"
@@ -179,3 +209,4 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
     </Dialog>
   );
 };
+
