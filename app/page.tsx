@@ -296,7 +296,7 @@ export default function Home() {
     {
       title: "Mail",
       icon: <Mail className="h-4 w-4 md:h-6 md:w-6" />,
-      onClick: () => window.open("mailto:your.email@example.com", "_blank"),
+      onClick: () => window.open("mailto:architmishra015@gmail.com", "_blank"),
     },
     {
       title: theme === "dark" ? "Light Mode" : "Dark Mode",
