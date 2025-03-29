@@ -32,6 +32,7 @@ import { cn } from "@/lib/utils";
 import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
+import Head from "next/head";
 import { useRef } from "react";
 
 interface Project {
@@ -311,7 +312,7 @@ export default function Home() {
   const featuredProjects = projectsData.projects.slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-stone-50 dark:bg-background relative overflow-x-hidden">
+    <main className="min-h-screen bg-stone-50 dark:bg-background relative overflow-x-hidden">  
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-stone-50 to-primary/5 dark:via-background dark:from-primary/10 dark:to-primary/10" />
@@ -418,7 +419,7 @@ export default function Home() {
                 className="relative inline-block"
               >
                 <motion.div
-                  className="absolute -inset-1 rounded-lg blur-xl opacity-75 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 dark:from-blue-600 dark:via-purple-600 dark:to-pink-600"
+                  className="absolute -inset-1 rounded-lg blur-xl opacity-75"
                   animate={{
                     scale: [1, 1.05, 1],
                     opacity: [0.3, 0.5, 0.3], // Lower opacity for light mode
@@ -434,7 +435,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
-                    className="text-4xl md:text-7xl font-bold tracking-tighter"
+                    className="text-4xl md:text-7xl font-semibold tracking-tighter im-fell-text"
                   >
                     Hi, I am{" "}
                   </motion.h1>
@@ -442,7 +443,7 @@ export default function Home() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.6, duration: 0.6 }}
-                    className="text-4xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400"
+                    className="text-4xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-[#FF512F] dark:via-[#DD2476] dark:to-[#8E2DE2] ubuntu-mono"
                   >
                     Archit Mishra
                   </motion.h1>
@@ -450,9 +451,12 @@ export default function Home() {
                     initial={{ opacity: 0, rotate: -20, scale: 0 }}
                     animate={{ opacity: 1, rotate: 0, scale: 1 }}
                     transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
-                    className="inline-block text-4xl md:text-7xl origin-bottom-right"
-                  >
+                    className="inline-block text-4xl md:text-7xl origin-bottom-right" 
+                    >
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 dark:from-[#FF6B6B] dark:via-[#FFD93D] dark:to-[#FF6B6B]">
+                  
                     👋
+                    </span>
                   </motion.span>
                 </div>
               </motion.div>
