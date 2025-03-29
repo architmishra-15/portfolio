@@ -300,11 +300,11 @@ export default function Home() {
       onClick: () => window.open("mailto:architmishra015@gmail.com", "_blank"),
     },
     {
-      title: theme === "dark" ? "Light Mode" : "Dark Mode",
-      icon: theme === "dark"
-        ? <Sun className="h-4 w-4 md:h-6 md:w-6" />
-        : <Moon className="h-4 w-4 md:h-6 md:w-6" />,
-      onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
+        title: theme === "dark" ? "Light Mode" : "Dark Mode",
+    icon: theme === "dark"
+      ? <Sun className="h-4 w-4 md:h-6 md:w-6" />  // This will show when the theme is dark (default)
+      : <Moon className="h-4 w-4 md:h-6 md:w-6" />,
+    onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
     },
   ];
 
