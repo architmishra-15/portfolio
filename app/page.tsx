@@ -32,7 +32,6 @@ import { cn } from "@/lib/utils";
 import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
-import Head from "next/head";
 import { useRef } from "react";
 
 interface Project {
@@ -300,11 +299,11 @@ export default function Home() {
       onClick: () => window.open("mailto:architmishra015@gmail.com", "_blank"),
     },
     {
-        title: theme === "dark" ? "Light Mode" : "Dark Mode",
-    icon: theme === "dark"
-      ? <Sun className="h-4 w-4 md:h-6 md:w-6" />  // This will show when the theme is dark (default)
-      : <Moon className="h-4 w-4 md:h-6 md:w-6" />,
-    onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
+      title: theme === "dark" ? "Light Mode" : "Dark Mode",
+      icon: theme === "dark"
+        ? <Sun className="h-4 w-4 md:h-6 md:w-6" /> // This will show when the theme is dark (default)
+        : <Moon className="h-4 w-4 md:h-6 md:w-6" />,
+      onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
     },
   ];
 
@@ -312,7 +311,7 @@ export default function Home() {
   const featuredProjects = projectsData.projects.slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-stone-50 dark:bg-background relative overflow-x-hidden">  
+    <main className="min-h-screen bg-stone-50 dark:bg-background relative overflow-x-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-stone-50 to-primary/5 dark:via-background dark:from-primary/10 dark:to-primary/10" />
@@ -443,7 +442,7 @@ export default function Home() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.6, duration: 0.6 }}
-                    className="text-4xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-[#FF512F] dark:via-[#DD2476] dark:to-[#8E2DE2] ubuntu-mono"
+                    className="my-name my-name-gradient bg-clip-text"
                   >
                     Archit Mishra
                   </motion.h1>
@@ -451,11 +450,10 @@ export default function Home() {
                     initial={{ opacity: 0, rotate: -20, scale: 0 }}
                     animate={{ opacity: 1, rotate: 0, scale: 1 }}
                     transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
-                    className="inline-block text-4xl md:text-7xl origin-bottom-right" 
-                    >
+                    className="inline-block text-4xl md:text-7xl origin-bottom-right"
+                  >
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 dark:from-[#FF6B6B] dark:via-[#FFD93D] dark:to-[#FF6B6B]">
-                  
-                    👋
+                      👋
                     </span>
                   </motion.span>
                 </div>
@@ -580,6 +578,7 @@ export default function Home() {
                                 src={skill.icon}
                                 alt={skill.name}
                                 className="w-8 h-8"
+                                loading="lazy"
                               />
                             </motion.div>
                             <span className="font-medium text-sm md:text-base">
@@ -627,6 +626,9 @@ export default function Home() {
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      width={500} // Specify width
+                      height={300}
+                      loading="lazy"
                     />
                   </div>
                   <div className="p-4">
@@ -694,6 +696,9 @@ export default function Home() {
                   src={selectedProject.image}
                   alt={selectedProject.title}
                   className="w-full aspect-video object-cover rounded-lg"
+                  width={500} // Specify width
+                  height={300}
+                  loading="lazy"
                 />
                 <h2 className="text-2xl font-bold">{selectedProject.title}</h2>
                 <p className="text-muted-foreground">
