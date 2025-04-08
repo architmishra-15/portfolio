@@ -61,6 +61,7 @@ export default function RootLayout({
             .dark .my-name-gradient {
               background-image: linear-gradient(to right, #FF512F, #DD2476, #8E2DE2); /* Dark mode gradient */
             }
+          }
           `}
         </style>
         <body className={inter.className}>
