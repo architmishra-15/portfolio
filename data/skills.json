@@ -35,11 +35,6 @@
       "category": "Languages"
     },
     {
-      "name": "LLVM",
-      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/llvm/llvm-original.svg",
-      "category": "Languages"
-    },
-    {
       "name": "React",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
       "category": "Frameworks"
@@ -92,11 +87,6 @@
     {
       "name": "CMake",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cmake/cmake-original.svg",
-      "category": "Frameworks"
-    },
-    {
-      "name": "LLVM",
-      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/llvm/llvm-original.svg",
       "category": "Frameworks"
     },
     {

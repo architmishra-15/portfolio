@@ -33,6 +33,7 @@ import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
+import { Terminal } from '@/components/Terminal';
 
 interface Project {
   title: string;
@@ -344,145 +345,21 @@ export default function Home() {
       </motion.div>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-4 pt-28 pb-20 md:pt-32 md:pb-0">
-        <div className="max-w-5xl mx-auto relative">
-          {/* Animated background elements */}
-          <div className="absolute -z-10 inset-0 overflow-hidden">
-            <motion.div
-              className="absolute w-64 h-64 rounded-full bg-primary/5 dark:bg-primary/10 blur-xl"
-              animate={{
-                x: [0, 100, 0],
-                y: [0, -50, 0],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-            <motion.div
-              className="absolute right-0 w-80 h-80 rounded-full bg-secondary/5 dark:bg-secondary/10 blur-xl"
-              animate={{
-                x: [0, -100, 0],
-                y: [0, 50, 0],
-              }}
-              transition={{
-                duration: 15,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-            <motion.div
-              className="absolute bottom-0 left-1/2 w-40 h-40 rounded-full bg-accent/5 dark:bg-accent/10 blur-xl"
-              animate={{
-                x: [-50, 100, -50],
-                y: [0, -100, 0],
-              }}
-              transition={{
-                duration: 25,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-          </div>
+       <section className="min-h-screen flex items-center justify-center px-4 pt-28 pb-20 md:pt-32 md:pb-0">
+        <div className="max-w-5xl mx-auto relative w-full">
+          {/* Terminal Gradient Background */}
+          <div className="absolute inset-0 terminal-gradient" />
 
+          {/* Terminal Component */}
+          <Terminal />
+
+          {/* Rest of your content with adjusted spacing */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center space-y-8 relative z-10"
+            transition={{ delay: 2.5 }}
+            className="text-center space-y-8 relative z-10 mt-12"
           >
-            {/* Animated greeting */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-lg md:text-2xl font-medium text-primary/80"
-            >
-              <span className="inline-block">
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                  Welcome to my portfolio
-                </motion.span>
-              </span>
-            </motion.div>
-
-            {/* Name with text reveal effect */}
-            <div className="relative">
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
-                className="relative inline-block"
-              >
-                <motion.div
-                  className="absolute -inset-1 rounded-lg blur-xl opacity-75"
-                  animate={{
-                    scale: [1, 1.05, 1],
-                    opacity: [0.3, 0.5, 0.3], // Lower opacity for light mode
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                />
-                <div className="relative flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-                  <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.6 }}
-                    className="text-4xl md:text-7xl font-semibold tracking-tighter im-fell-text"
-                  >
-                    Hi, I am{" "}
-                  </motion.h1>
-                  <motion.h1
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
-                    className="my-name my-name-gradient bg-clip-text"
-                  >
-                    Archit Mishra
-                  </motion.h1>
-                  <motion.span
-                    initial={{ opacity: 0, rotate: -20, scale: 0 }}
-                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                    transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
-                    className="inline-block text-4xl md:text-7xl origin-bottom-right"
-                  >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 dark:from-[#FF6B6B] dark:via-[#FFD93D] dark:to-[#FF6B6B]">
-                      👋
-                    </span>
-                  </motion.span>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Role description with typing effect */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              className="relative"
-            >
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2 }}
-                className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto"
-              >
-                A developer from India, currently in class 12th,{" "}
-                <span className="relative inline-block">
-                  <span className="absolute -inset-1 rounded-lg blur-sm bg-primary/20 dark:bg-primary/30 animate-pulse" />
-                  <span className="relative text-primary font-semibold">
-                    expertise in languages like Python, C/C++ etc
-                  </span>
-                </span>
-                .
-              </motion.p>
-            </motion.div>
 
             {/* CTA buttons */}
             <motion.div
@@ -688,8 +565,8 @@ export default function Home() {
             onOpenChange={() => setSelectedProject(null)}
           >
             <DialogContent
-              className="max-w-2xl"
-              style={{ backgroundColor: "rgba(255, 245, 235, 0.97)" }}
+              className="max-w-2xl bg-cream-50/90 dark:bg-gray-800/90"
+              // style={{ backgroundColor: "rgba(255, 245, 235, 0.97)" }}
             >
               <div className="space-y-4">
                 <img
