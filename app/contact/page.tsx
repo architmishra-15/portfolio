@@ -196,7 +196,7 @@ export default function ContactPage() {
             <div className="bg-card/60 backdrop-blur-sm border border-border p-6 rounded-lg">
               <h3 className="text-lg font-medium mb-4">Availability</h3>
               <p className="text-muted-foreground mb-4">
-                I'm currently in class 12th, so my availability varies. I'm most responsive:
+                Since I am a student, my availability varies. I'm most responsive:
               </p>
               <ul className="space-y-2">
                 <li className="flex items-center gap-2">
