@@ -32,7 +32,7 @@ html {
 
 @layer base {
   :root {
-      /* Light theme terminal colors - Neon Developer Theme */
+    /* Light theme terminal colors - Neon Developer Theme */
     --terminal-bg: 245 245 255;
     --terminal-text: 30 32 48;
     --terminal-prompt: 114 9 183; /* Vibrant purple */
@@ -43,11 +43,11 @@ html {
     --terminal-cursor: 56 189 248;
     --terminal-link: 79 70 229;
 
-    --background: 40 30% 98%;
+    --background: 40 30% 97%;  /* Soft cream/beige color instead of pure white */
     --foreground: 20 14.3% 4.1%;
-    --card: 40 30% 99%;
+    --card: 40 30% 98%;
     --card-foreground: 20 14.3% 4.1%;
-    --popover: 40 30% 99%;
+    --popover: 40 30% 98%;
     --popover-foreground: 20 14.3% 4.1%;
     --primary: 24 9.8% 10%;
     --primary-foreground: 60 9.1% 97.8%;
@@ -71,7 +71,7 @@ html {
   }
 
   .dark {
-      /* Dark theme terminal colors - Cyberpunk Hacker Theme */
+    /* Dark theme terminal colors - Cyberpunk Hacker Theme */
     --terminal-bg: 17 23 35;
     --terminal-text: 226 232 240;
     --terminal-prompt: 52 211 153; /* Neon cyan */
@@ -301,5 +301,28 @@ html {
 
 .dark .ascii-art {
   animation: text-flicker 5s linear infinite alternate;
+}
+
+/* Shadow glow effect for badges and elements */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+}
+
+.dark .shadow-glow {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Orbit animation for the skills section */
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--radius, 150px)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--radius, 150px)) rotate(-360deg);
+  }
+}
+
+.animate-orbit {
+  animation: orbit var(--duration, 20s) linear infinite;
 }
 

@@ -1,0 +1,43 @@
+[
+  {
+    "year": "2016",
+    "title": "Started Programming Journey",
+    "description": "Began learning Pyhton fundamentals and started my learning journey."
+  },
+  {
+    "year": "2020",
+    "title": "Got my first rating on CodeChef",
+    "description": "Started participating in contests and got my first rating on CodeChef and reached 3 stars."
+  },
+  {
+    "year": "2023",
+    "title": "Got my first certification",
+    "description": "Got my first certification in Python and Data Structures by University of Michigan on Coursera. And started building projects in Python."
+  },
+  {
+    "year": "2023",
+    "title": "Low level",
+    "description": "Started learning C and C++ to understand the computer from computer's perspective and explore the low level optimizations."
+  },
+  
+  {
+    "year": "2024",
+    "title": "Web Development",
+    "description": "Started learning Web Development and started building projects."
+  },
+  {
+    "year": "2024",
+    "title": "Exploring Other Technologies and Paradigms",
+    "description": "Started learning and exploring other technologies and paradigms like Golang, Functional Programming with Haskell, etc."
+  },
+  {
+    "year": "2025",
+    "title": "Developed Portfolio Website",
+    "description": "Created this portfolio website to showcase my skills and projects."
+  },
+  {
+    "year": "2025",
+    "title": "Passed Class 12th",
+    "description": "Passed my class 12th with PCM and Computer Science as main subjects."
+  }
+] 

@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useRef, lazy, Suspense } from "react";
 import {
   AnimatePresence,
   motion,
   useMotionValueEvent,
   useScroll,
+  useMotionValue, 
+  useSpring, 
+  useTransform
 } from "framer-motion";
 import {
   ArrowRight,
@@ -30,10 +33,12 @@ import skills from "@/data/skills.json";
 import projectsData from "@/data/projects.json";
 import { cn } from "@/lib/utils";
 import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
-import { useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
-import { useRef } from "react";
 import { Terminal } from '@/components/Terminal';
+import Image from "next/image";
+
+// Lazy load heavier components
+const ProjectDialog = lazy(() => import('../components/ProjectDialog'));
 
 interface Project {
   title: string;
@@ -109,7 +114,7 @@ const FloatingDockMobile = ({
         onClick={() => setOpen(!open)}
         className="h-12 w-12 rounded-full bg-stone-100 dark:bg-neutral-800 flex items-center justify-center shadow-lg"
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+        <IconLayoutNavbarCollapse size={28} className="block mx-auto my-auto text-neutral-500 dark:text-neutral-400" />
       </button>
     </div>
   );
@@ -281,10 +286,7 @@ export default function Home() {
     {
       title: "LinkedIn",
       icon: <Linkedin className="h-4 w-4 md:h-6 md:w-6" />,
-      onClick: () => {
-        setSocialType("linkedin");
-        setSocialDialogOpen(true);
-      },
+      onClick: () => window.open("https://www.linkedin.com/in/archit-mishra-10448a319/", "_blank"),
     },
     {
       title: "Instagram",
@@ -498,14 +500,15 @@ export default function Home() {
                 onClick={() => setSelectedProject(project)}
               >
                 <div className="relative overflow-hidden rounded-xl border border-border/70 dark:border-border bg-cream-50/90 dark:bg-gray-800/90 hover:border-primary/40 dark:hover:border-primary/50 transition-colors">
-                  <div className="aspect-video overflow-hidden">
-                    <img
+                  <div className="aspect-video relative overflow-hidden">
+                    <Image
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                      width={500} // Specify width
-                      height={300}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
                       loading="lazy"
+                      quality={80}
                     />
                   </div>
                   <div className="p-4">
@@ -564,61 +567,9 @@ export default function Home() {
             open={!!selectedProject}
             onOpenChange={() => setSelectedProject(null)}
           >
-            <DialogContent
-              className="max-w-2xl bg-cream-50/90 dark:bg-gray-800/90"
-              // style={{ backgroundColor: "rgba(255, 245, 235, 0.97)" }}
-            >
-              <div className="space-y-4">
-                <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="w-full aspect-video object-cover rounded-lg"
-                  width={500} // Specify width
-                  height={300}
-                  loading="lazy"
-                />
-                <h2 className="text-2xl font-bold">{selectedProject.title}</h2>
-                <p className="text-muted-foreground">
-                  {selectedProject.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {selectedProject.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-4 mt-6">
-                  {selectedProject.github && (
-                    <a
-                      href={selectedProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button>
-                        <Github className="mr-2 h-4 w-4" />
-                        GitHub
-                      </Button>
-                    </a>
-                  )}
-                  {selectedProject.gitlab && (
-                    <a
-                      href={selectedProject.gitlab}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button>
-                        <Gitlab className="mr-2 h-4 w-4" />
-                        GitLab
-                      </Button>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </DialogContent>
+            <Suspense fallback={<div className="p-8 flex justify-center">Loading...</div>}>
+              <ProjectDialog project={selectedProject} />
+            </Suspense>
           </Dialog>
         )}
       </AnimatePresence>

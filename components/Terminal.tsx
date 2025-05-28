@@ -52,7 +52,12 @@ const commands = [
   { cmd: 'pwd', delay: 1000 },
 ];
 
-export function Terminal() {
+interface TerminalProps {
+  onViewProjects?: () => void;
+  onContactMe?: () => void;
+}
+
+export function Terminal({ onViewProjects, onContactMe }: TerminalProps) {
   const [typedCommand, setTypedCommand] = useState('');
   const [showOutput, setShowOutput] = useState(false);
   const [showFiles, setShowFiles] = useState(false);
@@ -155,7 +160,7 @@ export function Terminal() {
             transition={{ delay: 0.3, duration: 0.5 }}
             className="text-[rgb(var(--terminal-prompt))] text-sm md:text-base font-semibold"
           >
-            Full Stack Developer | Open Source Enthusiast
+            Developer && Open Source Enthusiast
           </motion.div>
         )}
         {/* File Listing */}
@@ -172,6 +177,33 @@ export function Terminal() {
                 <span> &nbsp;&nbsp;&nbsp;&nbsp;portfolio/archit</span>
               </div>
             </div>
+          </motion.div>
+        )}
+        
+        {/* Navigation Buttons */}
+        {showFiles && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.0 }}
+            className="mt-8 flex justify-center gap-4 flex-wrap"
+          >
+            {onViewProjects && (
+              <button 
+                onClick={onViewProjects} 
+                className="px-4 py-2 bg-[rgb(var(--terminal-prompt))] bg-opacity-20 text-[rgb(var(--terminal-prompt))] rounded font-medium hover:bg-opacity-30 transition-colors"
+              >
+                View Projects
+              </button>
+            )}
+            {onContactMe && (
+              <button 
+                onClick={onContactMe} 
+                className="px-4 py-2 bg-[rgb(var(--terminal-prompt))] bg-opacity-10 text-[rgb(var(--terminal-prompt))] rounded font-medium hover:bg-opacity-20 transition-colors"
+              >
+                Contact Me
+              </button>
+            )}
           </motion.div>
         )}
       </div>

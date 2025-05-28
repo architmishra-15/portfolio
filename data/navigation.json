@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Home",
+    "href": "/"
+  },
+  {
+    "title": "Projects",
+    "href": "#projects"
+  },
+  {
+    "title": "Skills",
+    "href": "#skills"
+  },
+  {
+    "title": "GitHub",
+    "href": "https://github.com/architmishra-15",
+    "external": true
+  },
+  {
+    "title": "GitLab",
+    "href": "https://gitlab.com/archit_mishra/",
+    "external": true
+  },
+  {
+    "title": "LinkedIn",
+    "href": "https://www.linkedin.com/in/archit-mishra-10448a319",
+    "external": true
+  },
+  {
+    "title": "Contact",
+    "href": "#contact"
+  },
+  {
+    "title": "About",
+    "href": "#about"
+  }
+] 

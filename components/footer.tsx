@@ -50,13 +50,9 @@ export default function Footer() {
                 <Gitlab className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
                 <span className="sr-only">GitLab</span>
               </Link>
-              <Link href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="https://www.linkedin.com/in/archit-mishra-10448a319/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
                 <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link href="#" target="_blank" rel="noopener noreferrer">
-                <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-                <span className="sr-only">Twitter</span>
               </Link>
               <Link href="#" target="_blank" rel="noopener noreferrer">
                 <Instagram className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />

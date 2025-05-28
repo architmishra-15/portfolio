@@ -2,8 +2,11 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { DeviceProvider } from "@/components/device-provider";
+import { FloatingDock } from "@/components/floating-dock";
 import { GlobalTracingScrollbar } from "@/components/ui/tracing-beam";
 import Footer from "@/components/footer";
+import personalData from "@/data/personal.json";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,9 +15,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Archit Mishra - Portfolio",
-  description:
-    "Developer Portfolio showcasing projects and skills with languages like Python, C/C++ and JavaScript.",
+  title: `${personalData.name} - ${personalData.title}`,
+  description: personalData.bio,
+  keywords: ["Developer", "Portfolio", ...personalData.interests],
+  openGraph: {
+    title: `${personalData.name} - ${personalData.title}`,
+    description: personalData.bio,
+    type: 'website',
+    siteName: `${personalData.name}'s Portfolio`,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${personalData.name} - ${personalData.title}`,
+    description: personalData.bio,
+  },
+  metadataBase: new URL('https://your-domain.com'), // Update with your actual domain
   icons: {
     icon: "./favicon.ico",
   },
@@ -71,9 +86,12 @@ export default function RootLayout({
             enableSystem={false}
             disableTransitionOnChange
           >
-            <GlobalTracingScrollbar />
-            {children}
-            <Footer />
+            <DeviceProvider>
+              <GlobalTracingScrollbar />
+              {children}
+              <FloatingDock />
+              <Footer />
+            </DeviceProvider>
           </ThemeProvider>
         </body>
       </head>

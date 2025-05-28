@@ -1,0 +1,23 @@
+{
+  "name": "Archit Mishra",
+  "title": "Developer && Open Source Enthusiast",
+  "location": "Gorakhpur, Uttar Pradesh, India",
+  "education": "Computer Science student",
+  "bio": "I build modern, responsive web applications with a focus on accessibility and user experience.",
+  "social": {
+    "github": "https://github.com/architmishra-15",
+    "gitlab": "https://gitlab.com/archit_mishra/",
+    "linkedin": "https://www.linkedin.com/in/archit-mishra-10448a319",
+    "email": "architmishra015@gmail.com"
+  },
+  "interests": [
+    "Competitive Programming",
+    "Machine Learning",
+    "Low Level Programming",
+    "Compiler Infrastructures",
+    "Open Source",
+    "System Design",
+    "Web Development"
+  ],
+  "availableForWork": true
+} 

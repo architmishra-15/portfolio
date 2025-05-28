@@ -20,22 +20,23 @@ export default function ContactPage() {
     {
       icon: <Mail className="h-5 w-5" />,
       label: 'Email',
-      value: 'architmishra@example.com',
+      value: 'architmishra015@gamil.com',
       action: 'Copy',
       key: 'email'
     },
     {
       icon: <Phone className="h-5 w-5" />,
       label: 'Phone',
-      value: '+91 69696 96969',
+      value: '+91 94538 57524',
       action: 'Copy',
       key: 'phone'
     },
     {
       icon: <MapPin className="h-5 w-5" />,
       label: 'Location',
-      value: 'Red Light Area, India',
-      action: null,
+      value: 'Gorakhpur, Uttar Pradesh, India',
+      action: 'EmbedMap',
+      url: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113996.62469446752!2d83.32150997430236!3d26.763691325628677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3991446a0c332489%3A0x1ff3f97fdcc6bfa2!2sGorakhpur%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1746532445860!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
       key: 'location'
     },
     {
@@ -149,6 +150,15 @@ export default function ContactPage() {
                             )}
                             {copied === item.key ? 'Copied!' : 'Copy'}
                           </Button>
+                        ) : item.action === 'EmbedMap' ? (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-xs"
+                            onClick={() => document.getElementById('locationMap')?.scrollIntoView({behavior: 'smooth'})}
+                          >
+                            View Map
+                          </Button>
                         ) : (
                           <Link href={item.url!} target="_blank" rel="noopener noreferrer">
                             <Button
@@ -165,6 +175,22 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+
+            {/* Map Section */}
+            <div id="locationMap" className="mt-8">
+              <h3 className="text-lg font-medium mb-4">My Location</h3>
+              <div className="rounded-lg overflow-hidden border border-border h-[350px]">
+                <iframe 
+                  src={contactInfo.find(item => item.key === 'location')?.url}
+                  width="100%" 
+                  height="100%" 
+                  style={{border: 0}}
+                  allowFullScreen 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
             </div>
 
             <div className="bg-card/60 backdrop-blur-sm border border-border p-6 rounded-lg">

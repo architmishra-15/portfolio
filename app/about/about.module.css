@@ -1,0 +1,119 @@
+/* About page specific colors */
+.aboutPageContainer {
+  --about-bg: 210 50% 98%;
+  --about-card: 210 50% 99%;
+  --about-primary: 220 70% 50%;
+  --about-secondary: 270 65% 60%;
+  --about-accent: 30 80% 55%;
+  --about-muted: 220 20% 85%;
+  --about-border: 220 40% 85%;
+}
+
+.aboutPageContainer.dark {
+  --about-bg: 220 50% 10%;
+  --about-card: 220 50% 8%;
+  --about-primary: 220 70% 60%;
+  --about-secondary: 270 65% 70%;
+  --about-accent: 30 80% 65%;
+  --about-muted: 220 30% 30%;
+  --about-border: 220 40% 30%;
+}
+
+/* Background styles */
+.bg {
+  background-color: hsl(var(--about-bg));
+}
+
+.card {
+  background-color: hsl(var(--about-card));
+  border-color: hsl(var(--about-border));
+}
+
+.primaryText {
+  color: hsl(var(--about-primary));
+}
+
+.secondaryText {
+  color: hsl(var(--about-secondary));
+}
+
+.accentText {
+  color: hsl(var(--about-accent));
+}
+
+.primaryBg {
+  background-color: hsl(var(--about-primary));
+}
+
+.secondaryBg {
+  background-color: hsl(var(--about-secondary));
+}
+
+.accentBg {
+  background-color: hsl(var(--about-accent));
+}
+
+.mutedBg {
+  background-color: hsl(var(--about-muted));
+}
+
+.gradientBg {
+  background: linear-gradient(
+    to right,
+    hsl(var(--about-primary)),
+    hsl(var(--about-secondary))
+  );
+}
+
+.gradientText {
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(
+    to right,
+    hsl(var(--about-primary)),
+    hsl(var(--about-secondary))
+  );
+}
+
+.gradientBorder {
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(
+    to right,
+    hsl(var(--about-primary)),
+    hsl(var(--about-secondary))
+  ) 1;
+}
+
+.accentGradient {
+  background: linear-gradient(
+    to right,
+    hsl(var(--about-primary)),
+    hsl(var(--about-accent))
+  );
+}
+
+/* Card with gradient border */
+.gradientCard {
+  position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.gradientCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 0.75rem;
+  background: linear-gradient(
+    to right,
+    hsl(var(--about-primary)),
+    hsl(var(--about-secondary))
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+} 
